@@ -2,9 +2,9 @@ package com.hanwha.service;
 
 import java.util.List;
 
-
 import com.hanwha.dto.BookDTO;
 import com.hanwha.dto.CreateMemberDTO;
+import com.hanwha.dto.MainContentDTO;
 import com.hanwha.dto.MemberDTO;
 import com.hanwha.dto.RentListDTO;
 
@@ -37,4 +37,6 @@ public interface BookService {
 	public List<RentListDTO> getRentRecord(String memberId);
 	
 	public List<MemberDTO> getMemberList();
+	
+	public List<MainContentDTO> getMainContent(String memberId);
 }

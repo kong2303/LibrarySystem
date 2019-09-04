@@ -71,7 +71,10 @@ public class MyController {
 	}
 	
 	@RequestMapping("/member/main")
-	public String main() {
+	public String main(HttpServletRequest request, Model model) {
+		
+		String memberId = ((MemberDTO)(request.getSession().getAttribute("loginInfo"))).getMemberId();
+		model.addAttribute("mainList",service.getMainContent(memberId));
 		
 		return "member/main";
 	}
@@ -189,7 +192,8 @@ public class MyController {
 	@RequestMapping("/member/rentRecord")
 	public String rentRecord(String memberId, Model model) {
 		
-		model.addAttribute("rentList",service.getRentRecord(memberId));
+		model.addAttribute("rentList", service.getRentRecord(memberId));
+		model.addAttribute("memberId", memberId);
 		
 		return "member/rentRecord";
 	}

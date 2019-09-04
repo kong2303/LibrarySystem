@@ -3,6 +3,7 @@ package com.hanwha.dao;
 import java.util.List;
 
 import com.hanwha.dto.BookDTO;
+import com.hanwha.dto.MainContentDTO;
 import com.hanwha.dto.MemberDTO;
 import com.hanwha.dto.RentListDTO;
 
@@ -39,4 +40,8 @@ public interface BookDAO {
 	public List<RentListDTO> getRentRecord(String memberId);
 	
 	public List<MemberDTO> getMemberList();
+	
+	public List<MainContentDTO> getRentRecordAll();
+	
+	public List<MainContentDTO> getRentById(String memberId);
 }

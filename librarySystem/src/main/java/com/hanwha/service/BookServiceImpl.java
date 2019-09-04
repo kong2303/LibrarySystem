@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hanwha.dao.BookDAO;
 import com.hanwha.dto.BookDTO;
 import com.hanwha.dto.CreateMemberDTO;
+import com.hanwha.dto.MainContentDTO;
 import com.hanwha.dto.MemberDTO;
 import com.hanwha.dto.RentListDTO;
 
@@ -135,6 +136,19 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public List<MemberDTO> getMemberList() {
 		return dao.getMemberList();
+	}
+
+	@Override
+	public List<MainContentDTO> getMainContent(String memberId) {
+		
+		List<MainContentDTO> list = null;
+		if(memberId.equals("admin")) {
+			list = dao.getRentRecordAll();
+		} else {
+			list = dao.getRentById(memberId);
+		}
+		
+		return list;
 	}
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.hanwha.dto.BookDTO;
+import com.hanwha.dto.MainContentDTO;
 import com.hanwha.dto.MemberDTO;
 import com.hanwha.dto.RentListDTO;
 
@@ -95,6 +96,16 @@ public class BookDAOImpl implements BookDAO{
 	@Override
 	public List<MemberDTO> getMemberList() {
 		return session.selectList(namespace+"getMemberList");
+	}
+
+	@Override
+	public List<MainContentDTO> getRentRecordAll() {
+		return session.selectList(namespace+"getRentRecordAll");
+	}
+
+	@Override
+	public List<MainContentDTO> getRentById(String memberId) {
+		return session.selectList(namespace+"getRentById", memberId);
 	}
 	
 }

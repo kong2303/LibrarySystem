@@ -15,6 +15,11 @@
 		<jsp:include page="/WEB-INF/views/include/header_member.jsp"></jsp:include>
 	</c:if>
 	<hr>
-	내용 ㅎㅎ
+	<c:if test="${sessionScope.loginInfo.getMemberId() == 'admin' }">
+		<jsp:include page="/WEB-INF/views/include/content_admin.jsp"></jsp:include>
+	</c:if>
+	<c:if test="${sessionScope.loginInfo.getMemberId() != 'admin' }">
+		<jsp:include page="/WEB-INF/views/include/content_member.jsp"></jsp:include>
+	</c:if>
 </body>
 </html>

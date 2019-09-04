@@ -16,8 +16,7 @@
 		<jsp:include page="/WEB-INF/views/include/header_member.jsp"></jsp:include>
 	</c:if>
 	<hr>
-	<h1 style="text-align: center">${sessionScope.loginInfo.getMemberId() }님의
-		대여 이력</h1>
+	<h1 style="text-align: center">${memberId }님의 대여 이력</h1>
 	<%
 		int count = 1;
 	%>
@@ -26,7 +25,7 @@
 			<th>번호</th>
 			<th>책 제목</th>
 			<th>시작일</th>
-			<th>종료일</th>
+			<th>종료(예정)일</th>
 			<th>수량</th>
 			<th>상태</th>
 		</tr>

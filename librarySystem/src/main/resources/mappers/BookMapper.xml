@@ -82,4 +82,12 @@
 	<select id="getMemberList" resultType="com.hanwha.dto.MemberDTO">
 		SELECT * FROM member WHERE memberId != 'admin'
 	</select>
+	
+	<select id="getRentRecordAll" resultType="com.hanwha.dto.MainContentDTO">
+		SELECT r.*, b.bookNo, b.bookName, b.writer, b.publish, b.image FROM rentlist r, book b WHERE r.bookNo = b.bookNo AND r.state = 1 ORDER BY r.end DESC 
+	</select>
+	
+	<select id="getRentById" resultType="com.hanwha.dto.MainContentDTO">
+		SELECT r.*, b.bookNo, b.bookName, b.writer, b.publish, b.image FROM rentlist r, book b WHERE r.bookNo = b.bookNo AND r.memberId=#{memberId} AND r.state = 1 ORDER BY r.end DESC 
+	</select>
 </mapper>
