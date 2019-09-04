@@ -13,13 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hanwha.dto.BookDTO;
 import com.hanwha.dto.CreateMemberDTO;
+import com.hanwha.dto.MemberDTO;
+import com.hanwha.dto.RentListDTO;
 import com.hanwha.service.BookService;
 
 @Controller
 public class MyController {
 
 	@Autowired
-	BookService loginService;
+	BookService service;
 	
 	@RequestMapping("/login/loginPage")
 	public String loginPage(HttpServletRequest req) {
@@ -36,7 +38,7 @@ public class MyController {
 	@RequestMapping("/login/createPro")
 	public String createPro(CreateMemberDTO dto, Model model) {
 		
-		model.addAttribute("result", loginService.insertMember(dto));
+		model.addAttribute("result", service.insertMember(dto));
 		model.addAttribute("memberId", dto.getMemberId());
 		
 		return "login/createPro";
@@ -45,8 +47,8 @@ public class MyController {
 	@RequestMapping("/login/loginPro")
 	public String loginPro(String id, String pw, Model model) {
 		
-		model.addAttribute("result", loginService.loginPro(id, pw));
-		model.addAttribute("memberInfo", loginService.getMember(id));
+		model.addAttribute("result", service.loginPro(id, pw));
+		model.addAttribute("memberInfo", service.getMember(id));
 		
 		return "login/loginPro";
 	}
@@ -54,7 +56,7 @@ public class MyController {
 	@RequestMapping("/login/checkDup")
 	public String checkDup(String memberId, Model model) {
 		
-		model.addAttribute("result", loginService.checkDup(memberId));
+		model.addAttribute("result", service.checkDup(memberId));
 		model.addAttribute("memberId", memberId);
 		
 		return "login/checkDup";
@@ -65,7 +67,7 @@ public class MyController {
 		
 		request.getSession().removeAttribute("loginInfo");
 		
-		return "/login/loginPage";
+		return "redirect:/login/loginPage";
 	}
 	
 	@RequestMapping("/member/main")
@@ -83,7 +85,7 @@ public class MyController {
 	@RequestMapping("/member/myInfoCheck")
 	public String myInfoCheck(String id, String pw, Model model) {
 		
-		model.addAttribute("result", loginService.loginPro(id, pw));
+		model.addAttribute("result", service.loginPro(id, pw));
 		
 		return "member/myInfoDetail";
 	}
@@ -91,10 +93,10 @@ public class MyController {
 	@RequestMapping("/member/myInfoUpdate")
 	public String myInfoUpdate(CreateMemberDTO dto, HttpServletRequest request) {
 		
-		int result = loginService.updateMember(dto);
+		int result = service.updateMember(dto);
 		if(result == 1) {
 			request.getSession().removeAttribute("loginInfo");
-			request.getSession().setAttribute("loginInfo", loginService.getMember(dto.getMemberId()));
+			request.getSession().setAttribute("loginInfo", service.getMember(dto.getMemberId()));
 		}
 		return "member/main";
 	}
@@ -102,7 +104,7 @@ public class MyController {
 	@RequestMapping("/admin/bookStock")
 	public String bookStock(Model model) {
 		
-		model.addAttribute("bookList", loginService.getBookList());
+		model.addAttribute("bookList", service.getBookList());
 		
 		return "admin/bookStock";
 	}
@@ -131,7 +133,72 @@ public class MyController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		loginService.insertBook(dto);
+		service.insertBook(dto);
 		return "redirect:bookStock";
+	}
+	
+	@RequestMapping("/admin/detailBook")
+	public String detailBook(int bookNo, Model model) {
+		
+		model.addAttribute("book", service.detailBook(bookNo));
+		
+		return "admin/detailBook";
+	}
+	
+	@RequestMapping("/admin/updateBook")
+	public String updateBook(BookDTO dto) {
+		
+		service.updateBook(dto);
+		
+		return "redirect:bookStock";
+	}
+	
+	@RequestMapping("/member/applyRent")
+	public String applyRent(int bookNo, Model model) {
+		
+		model.addAttribute("book", service.detailBook(bookNo));
+		
+		return "member/applyRent";
+	}
+	
+	@RequestMapping("/member/applyRentPro")
+	public String applyRentPro(RentListDTO dto) {
+		
+		service.insertRent(dto);
+		
+		return "redirect:/admin/bookStock";
+	}
+	
+	@RequestMapping("/member/rentBookList")
+	public String rentBookList(String memberId, Model model) {
+		
+		model.addAttribute("rentList", service.getRentList(memberId));
+
+		return "member/rentBookList";
+	}
+	
+	@RequestMapping("/member/returnBook")
+	public String returnBook(int[] rNo, HttpServletRequest request) {
+		
+		String memberId = ((MemberDTO)(request.getSession().getAttribute("loginInfo"))).getMemberId();
+		service.returnBook(rNo);
+		
+		return "redirect:/member/rentBookList?memberId="+memberId;
+	}
+	
+	@RequestMapping("/member/rentRecord")
+	public String rentRecord(String memberId, Model model) {
+		
+		model.addAttribute("rentList",service.getRentRecord(memberId));
+		
+		return "member/rentRecord";
+	}
+	
+	@RequestMapping("/admin/manageMember")
+	public String rentRecord(Model model) {
+		
+		model.addAttribute("memberList", service.getMemberList());
+		
+		return "admin/memberList";
 	}
 }

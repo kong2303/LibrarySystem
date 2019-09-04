@@ -9,9 +9,10 @@ import com.hanwha.dao.BookDAO;
 import com.hanwha.dto.BookDTO;
 import com.hanwha.dto.CreateMemberDTO;
 import com.hanwha.dto.MemberDTO;
+import com.hanwha.dto.RentListDTO;
 
 @Service
-public class BooknServiceImpl implements BookService{
+public class BookServiceImpl implements BookService{
 	
 	@Autowired
 	BookDAO dao;
@@ -86,6 +87,54 @@ public class BooknServiceImpl implements BookService{
 	@Override
 	public int insertBook(BookDTO dto) {
 		return dao.insertBook(dto);
+	}
+
+	@Override
+	public BookDTO detailBook(int bookNo) {
+		return dao.getBook(bookNo);
+	}
+
+	@Override
+	public int updateBook(BookDTO dto) {
+		return dao.updateBook(dto);
+	}
+
+	@Override
+	public int insertRent(RentListDTO dto) {
+		int result = dao.insertRent(dto);
+		if(result == 1) {
+			dao.updateBookStock(dto);
+		}
+		return result;
+	}
+
+	@Override
+	public List<RentListDTO> getRentList(String memberId) {
+		return dao.getRentList(memberId);
+	}
+
+	@Override
+	public int returnBook(int[] rNo) {
+		
+		int result = 0;
+		for(int i=0; i<rNo.length; i++) {
+			int check = dao.returnBook(rNo[i]);
+			result += check;
+			if(check == 1) {
+				dao.updateBookStock2(dao.getBookInfo(rNo[i]));
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<RentListDTO> getRentRecord(String memberId) {
+		return dao.getRentRecord(memberId);
+	}
+
+	@Override
+	public List<MemberDTO> getMemberList() {
+		return dao.getMemberList();
 	}
 	
 }

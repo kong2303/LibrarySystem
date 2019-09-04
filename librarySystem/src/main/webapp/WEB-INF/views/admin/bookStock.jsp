@@ -11,22 +11,26 @@
 <body>
 	<c:if test="${sessionScope.loginInfo.getMemberId() == 'admin' }">
 		<jsp:include page="/WEB-INF/views/include/header_admin.jsp"></jsp:include>
+		<c:set var="detail" value="/admin/detailBook"/>
 	</c:if>
 	<c:if test="${sessionScope.loginInfo.getMemberId() != 'admin' }">
 		<jsp:include page="/WEB-INF/views/include/header_member.jsp"></jsp:include>
+		<c:set var="detail" value="/member/applyRent"/>
 	</c:if>
 	<hr>
 	<h1 style="text-align: center">도서 현황</h1>
-	<div  style="text-align: right">
-		<a href="<c:url value='/admin/insertBook'/>">도서추가</a>
-	</div>
+	<c:if test="${sessionScope.loginInfo.getMemberId() == 'admin' }">
+		<div  style="text-align: right">
+			<a href="<c:url value='/admin/insertBook'/>">도서추가</a>
+		</div>
+	</c:if>
 	
 	<table border="1" style="text-align: center; margin: auto">
 		<c:forEach var="book" items="${bookList }">
 			<tr>
-				<td rowspan="4"><a href="#"><img alt="이미지" width="160"
+				<td rowspan="4"><a href="<c:url value='${detail }?bookNo=${book.bookNo }'/>"><img alt="이미지" width="160"
 						src="${path }/resources/${book.image}"></a></td>
-				<td colspan="2"><a href="#">${book.bookName }</a></td>
+				<td colspan="2"><a href="<c:url value='${detail }?bookNo=${book.bookNo }'/>">${book.bookName }</a></td>
 			</tr>
 			<tr>
 				<td colspan="2">${book.writer }</td>
@@ -36,7 +40,9 @@
 			</tr>
 			<tr>
 				<td>수량</td>
-				<td>${book.stock }</td>
+				<td>
+					${book.stock } (${(book.stock == 0)?"대여불가":"대여가능" })
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

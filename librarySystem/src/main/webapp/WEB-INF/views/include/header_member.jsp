@@ -17,9 +17,9 @@
 	<div>
 		<table style="margin:left; text-align:center">
 			<tr>
-				<th><a href="#">도서대출</a></th>
-				<th><a href="#">도서반납</a></th>
-				<th><a href="#">대여이력</a></th>
+				<th><a href="<c:url value='/admin/bookStock'/>">도서대출</a></th>
+				<th><a href="<c:url value='/member/rentBookList?memberId=${sessionScope.loginInfo.getMemberId() }'/>">도서반납</a></th>
+				<th><a href="<c:url value='/member/rentRecord?memberId=${sessionScope.loginInfo.getMemberId() }'/>">대여이력</a></th>
 			</tr>
 		</table>
 		<div style="text-align: right">

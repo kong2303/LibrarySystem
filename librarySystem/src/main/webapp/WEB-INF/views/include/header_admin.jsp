@@ -18,8 +18,7 @@
 		<table style="margin:left; text-align:center">
 			<tr>
 				<th><a href="<c:url value='/admin/bookStock'/>">도서현황</a></th>
-				<th><a href="#">반납관리</a></th>
-				<th><a href="#">회원관리</a></th>
+				<th><a href="<c:url value='/admin/manageMember'/>">회원관리</a></th>
 			</tr>
 		</table>
 		<div style="text-align: right">

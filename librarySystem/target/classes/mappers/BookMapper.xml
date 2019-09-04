@@ -34,4 +34,52 @@
 		INSERT INTO book VALUES (seq_book.nextval, #{bookName}, #{writer}, #{publish}, #{stock}, #{image})
 	</insert>
 	
+	<select id="getBook" resultType="com.hanwha.dto.BookDTO">
+		SELECT * FROM book WHERE bookNo = #{bookNO}
+	</select>
+	
+	<update id="updateBook" parameterType="com.hanwha.dto.BookDTO">
+		UPDATE book SET 
+		bookName = #{bookName},
+		writer = #{writer},
+		publish = #{publish},
+		stock = #{stock}
+		WHERE bookNo = #{bookNo}
+	</update>
+	
+	<insert id="insertRent" parameterType="com.hanwha.dto.RentListDTO">
+		INSERT INTO rentlist VALUES(seq_rent.nextval, #{memberId}, #{bookNo}, #{begin}, #{end}, #{stock}, 1)
+	</insert>
+	
+	<update id="updateBookStock" parameterType="com.hanwha.dto.RentListDTO">
+		UPDATE book SET
+		stock = stock - #{stock}
+		WHERE bookNo = #{bookNo}
+	</update>
+	
+	<select id="getRentList" resultType="com.hanwha.dto.RentListDTO">
+		SELECT r.*, b.bookName FROM rentlist r, book b WHERE r.bookNo = b.bookNo AND r.memberId = #{memberId} AND r.state = 1 ORDER BY r.end DESC
+	</select>
+	
+	<update id="returnBook" parameterType="int">
+		UPDATE rentlist SET state = 2 WHERE rNo =#{rNo}
+	</update>
+	
+	<select id="getBookInfo" resultType="com.hanwha.dto.RentListDTO">
+		SELECT * FROM rentlist WHERE rNo=#{rNo}
+	</select>
+	
+	<update id="updateBookStock2" parameterType="com.hanwha.dto.RentListDTO">
+		UPDATE book SET
+		stock = stock + #{stock}
+		WHERE bookNo = #{bookNo}
+	</update>
+	
+	<select id="getRentRecord" resultType="com.hanwha.dto.RentListDTO">
+		SELECT r.*, b.bookName FROM rentlist r, book b WHERE r.bookNo = b.bookNo AND r.memberId = #{memberId} ORDER BY r.end DESC
+	</select>
+	
+	<select id="getMemberList" resultType="com.hanwha.dto.MemberDTO">
+		SELECT * FROM member WHERE memberId != 'admin'
+	</select>
 </mapper>
