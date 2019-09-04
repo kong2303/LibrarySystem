@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.hanwha.dto.MemberDTO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -12,8 +13,8 @@
 	<c:if test="${result == 0 }">
 		<%
 			request.setCharacterEncoding("UTF-8");
-			String memberId = (String)request.getAttribute("memberId");
-			session.setAttribute("loginId", memberId);
+			MemberDTO memberInfo = (MemberDTO)request.getAttribute("memberInfo");
+			session.setAttribute("loginInfo", memberInfo);
 		%>
 		<script type="text/javascript">
 			location.href = "<c:url value='/member/main'/>";

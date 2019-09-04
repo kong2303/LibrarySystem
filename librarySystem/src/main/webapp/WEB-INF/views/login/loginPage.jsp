@@ -49,6 +49,9 @@
 						<c:if test="${result.equals('2') }">
 							<br> <div style="color:red;">비밀번호가 일치하지 않습니다.</div>
 						</c:if>
+						<c:if test="${result.equals('3') }">
+							<br> <div style="color:blue;">회원가입을 축하합니다!!</div>
+						</c:if>
 					</th>
 				</tr>
 				<tr>

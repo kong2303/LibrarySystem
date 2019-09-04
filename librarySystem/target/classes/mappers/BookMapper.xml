@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.hanwha.login">
+
+	<select id="selectPw" resultType="String">
+		SELECT password FROM member WHERE memberId = #{memberId}
+	</select>
+	
+	<insert id="insertMember" parameterType="com.hanwha.dto.MemberDTO">
+		INSERT INTO member values(#{memberId}, #{password}, #{memberName}, #{email})
+	</insert>
+	
+	<select id="getMember" resultType="com.hanwha.dto.MemberDTO">
+		SELECT * FROM member WHERE memberId = #{memberId}
+	</select>
+	
+	<update id="updateMember" parameterType="com.hanwha.dto.MemberDTO">
+		UPDATE member SET 
+		password = #{password},
+		memberName = #{memberName},
+		email = #{email}
+		WHERE memberId = #{memberId}
+	</update>
+	
+	<select id="getBookList" resultType="com.hanwha.dto.BookDTO">
+		SELECT * FROM book
+	</select>
+	
+	<insert id="insertBook" parameterType="com.hanwha.dto.BookDTO">
+		INSERT INTO book VALUES (seq_book.nextval, #{bookName}, #{writer}, #{publish}, #{stock}, #{image})
+	</insert>
+	
+</mapper>
