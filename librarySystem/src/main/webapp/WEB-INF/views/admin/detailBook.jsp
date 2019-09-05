@@ -9,17 +9,21 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function checkContent(){
-		if(!document.updateBookForm.bookName.value){
+	function checkContent() {
+		if (!document.updateBookForm.bookName.value) {
 			alert('도서 제목을 입력하세요.');
 			return false;
-		} else if(!document.updateBookForm.writer.value){
+		} else if (!document.updateBookForm.writer.value) {
 			alert('저자를 입력하세요.');
 			return false;
-		} 
+		}
 	}
-	
 </script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="../resources/js/bootstrap.js"></script>
+
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
 <body>
 	<c:if test="${sessionScope.loginInfo.getMemberId() == 'admin' }">
 		<jsp:include page="/WEB-INF/views/include/header_admin.jsp"></jsp:include>
@@ -28,36 +32,43 @@
 		<jsp:include page="/WEB-INF/views/include/header_member.jsp"></jsp:include>
 	</c:if>
 	<hr>
-	<h1 style="text-align: center">도서 수정</h1>
-	<form action="<c:url value='/admin/updateBook'/>" name="updateBookForm" method="post" onsubmit="return checkContent();">
-		<input type="hidden" name="bookNo" value="${book.bookNo }">
-		<input type="hidden" name="image" value="${book.image }">
-		<table border="1" style="text-align: center; margin: auto">
-			<tr>
-				<td rowspan="4"><img alt="이미지" width="160"
-					src="${path }/resources/${book.image}"></td>
-				<td>도서 제목</td>
-				<td><input type="text" name="bookName" value="${book.bookName }"></td>
-			</tr>
-			<tr>
-				<td>저자</td>
-				<td><input type="text" name="writer" value="${book.writer }"></td>
-			</tr>
-			<tr>
-				<td>출판사</td>
-				<td><input type="text" name="publish" value="${book.publish }"></td>
-			</tr>
-			<tr>
-				<td>수량</td>
-				<td><input type="number" name="stock" value="${book.stock }" min="0"></td>
-			</tr>
-			<tr>
-				<td colspan="3" style="text-align: right">
-					<input type="submit" value="수정">
-					<input type="button" value="취소" onclick="history.back()">
-				</td>
-			</tr>
-		</table>
-	</form>
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<label style="font-size: 40px">도서 수정</label>
+		<form action="<c:url value='/admin/updateBook'/>"
+			name="updateBookForm" method="post" onsubmit="return checkContent();">
+			<input type="hidden" name="bookNo" value="${book.bookNo }"> <input
+				type="hidden" name="image" value="${book.image }">
+			<table class="table table-bordered"
+				style="text-align: center; margin: auto">
+				<tr>
+					<td rowspan="4"><img alt="이미지" width="160"
+						src="${path }/resources/${book.image}"></td>
+					<td>도서 제목</td>
+					<td><input type="text" name="bookName"
+						value="${book.bookName }" class="form-control"></td>
+				</tr>
+				<tr>
+					<td>저자</td>
+					<td><input type="text" name="writer" value="${book.writer }" class="form-control"></td>
+				</tr>
+				<tr>
+					<td>출판사</td>
+					<td><input type="text" name="publish" value="${book.publish }" class="form-control"></td>
+				</tr>
+				<tr>
+					<td>수량</td>
+					<td><input type="number" name="stock" value="${book.stock }"
+						min="0" class="form-control"></td>
+				</tr>
+			</table>
+			<div style="text-align: right">
+				<input type="submit" value="수정" class="btn btn-primary"> <input
+					type="button" value="취소" onclick="history.back()"
+					class="btn btn-default">
+			</div>
+		</form>
+	</div>
+	<div class="col-md-4"></div>
 </body>
 </html>

@@ -24,6 +24,11 @@
 		}
 	}
 </script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="../resources/js/bootstrap.js"></script>
+
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
 <body>
 	<c:if test="${sessionScope.loginInfo.getMemberId() == 'admin' }">
 		<jsp:include page="/WEB-INF/views/include/header_admin.jsp"></jsp:include>
@@ -38,46 +43,58 @@
 			history.back();
 		</script>
 	</c:if>
-	<form action="<c:url value='/member/myInfoUpdate'/>"
-		name="infoCheckForm" onsubmit="return checkContent();">
-		<input type="hidden" name="dup" id="dup" value="1">
-		<table style="margin: auto; text-align: left">
-			<tr>
-				<th colspan="2" style="height: 100px">개인정보 확인 및 수정</th>
-			</tr>
-			<tr>
-				<th>아이디 :</th>
-				<td><input type="text" name="memberId" id="memberId"
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<div style="text-align: center">
+			<label style="font-size: 40px">개인정보 확인 및 수정</label>
+		</div>
+		
+		<form action="<c:url value='/member/myInfoUpdate'/>" name="infoCheckForm" onsubmit="return checkContent();" class="form-horizontal">
+			<div class="form-group">
+				<label for="memberId" class="col-sm-3 control-label">아이디</label>
+				<div class="col-sm-9">
+					<input type="text" name="memberId" id="memberId"
 					maxlength="15" value="${sessionScope.loginInfo.getMemberId() }"
-					readonly></td>
-			</tr>
-			<tr>
-				<th>비밀번호 :</th>
-				<td><input type="password" name="password" maxlength="15"></td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인:</th>
-				<td><input type="password" name="re_password" maxlength="15"></td>
-			</tr>
-			<tr>
-				<th>이름 :</th>
-				<td><input type="text" name="memberName" maxlength="10"
-					value="${sessionScope.loginInfo.getMemberName()}"></td>
-			</tr>
-			<tr>
-				<th>E-mail</th>
-				<td><input type="text" name="email1"
-					value="${sessionScope.loginInfo.getEmail().split('@')[0]}">
-					@ <input type="text" name="email2"
-					value="${sessionScope.loginInfo.getEmail().split('@')[1]}">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" style="text-align: right">
-				<input type="submit" value="확인">
-                <input type="button" value="뒤로" onclick="history.back();"></td>
-			</tr>
-		</table>
-	</form>
+					readonly class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-sm-3 control-label">비밀번호</label>
+				<div class="col-sm-9">
+					<input type="password" name="password" id="password" maxlength="15" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="re_password" class="col-sm-3 control-label">비밀번호</label>
+				<div class="col-sm-9">
+					<input type="password" name="re_password" id="re_password" maxlength="15" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="memberName" class="col-sm-3 control-label">이름</label>
+				<div class="col-sm-9">
+					<input type="text" name="memberName" id="memberName" maxlength="10" value="${sessionScope.loginInfo.getMemberName()}" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="email1" class="col-sm-3 control-label">이메일</label>
+				<div class="col-sm-4">
+					<input type="text" name="email1" id="email1" class="form-control" value="${sessionScope.loginInfo.getEmail().split('@')[0]}">
+				</div>
+				<div class="col-sm-1">
+					@
+				</div>
+				<div class="col-sm-4">
+					<input type="text" name="email2" id="email2" class="form-control" value="${sessionScope.loginInfo.getEmail().split('@')[1]}">
+				</div>
+			</div>
+			<div style="text-align:right">
+				<input type="submit" value="수정" class="btn btn-primary">
+				<input type="button" value="취소" onclick="location.href='<c:url value='/member/main'/>'" class="btn btn-default">
+			</div>
+			
+		</form>
+	</div>
+	<div class="col-md-4"></div>
 </body>
 </html>

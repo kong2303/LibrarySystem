@@ -8,36 +8,48 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="../resources/js/bootstrap.js"></script>
+
+<link rel="stylesheet" href="../resources/css/bootstrap.css">
 <body>
-	<h1 style="text-align: center">대여중인 도서</h1>
-	<table border="1" style="text-align: center; margin: auto">
-		<%int count = 0; %>
-		<c:forEach var="main" items="${mainList }">
-			<%count++; %>
-			<tr>
-				<td rowspan="5" style="width:50px"><%=count %></td>
-				<th rowspan="5"><img alt="이미지" width="160"
-						src="${path }/resources/${main.image}"></th>
-				<th>제목</th>
-				<td style="width:200px">${main.bookName }</td>
-			</tr>
-			<tr>
-				<th>작가</th>
-				<td>${main.writer }</td>
-			</tr>
-			<tr>
-				<th>시작일</th>
-				<td>${main.begin }</td>
-			</tr>
-			<tr>
-				<th>종료일</th>
-				<td>${main.end }</td>
-			</tr>
-			<tr>
-				<th>수량</th>
-				<td>${main.stock }</td>
-			</tr> 
-		</c:forEach>
-	</table>
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<label style="font-size: 40px">대여중인 도서</label>
+		<table class="table table-bordered" style="text-align: center; margin: auto">
+			<%
+				int count = 0;
+			%>
+			<c:forEach var="main" items="${mainList }">
+				<%
+					count++;
+				%>
+				<tr>
+					<td rowspan="5" style="width: 40px"><%=count%></td>
+					<th rowspan="5" style="width: 200px"><img alt="이미지"
+						width="160" src="${path }/resources/${main.image}"></th>
+					<td>제목</td>
+					<td>${main.bookName }</td>
+				</tr>
+				<tr>
+					<td>작가</td>
+					<td>${main.writer }</td>
+				</tr>
+				<tr>
+					<td>시작일</td>
+					<td>${main.begin }</td>
+				</tr>
+				<tr>
+					<td>종료일</td>
+					<td>${main.end }</td>
+				</tr>
+				<tr>
+					<td>수량</td>
+					<td>${main.stock }</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+	<div class="col-md-4"></div>
 </body>
 </html>

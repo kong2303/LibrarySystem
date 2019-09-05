@@ -101,7 +101,7 @@ public class MyController {
 			request.getSession().removeAttribute("loginInfo");
 			request.getSession().setAttribute("loginInfo", service.getMember(dto.getMemberId()));
 		}
-		return "member/main";
+		return "redirect:/member/main";
 	}
 	
 	@RequestMapping("/admin/bookStock")
